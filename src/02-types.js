@@ -41,3 +41,12 @@ const funcion = () => {
 };
 
 console.log(typeof funcion);
+
+const userProfile = {
+    username: "dev_yaz",
+    score: 1540.5,
+    isPremium: true
+};
+const userSession = null;
+console.log("Perfil del usuario:", userProfile);
+console.log("Tipo de datos de la sesión:", typeof userSession);

@@ -28,3 +28,10 @@ console.log(nombre.slice(0, 3));
 console.log(nombre.substring(0, 3));
 console.log(nombre.concat(" Bacilio"));
 console.log(nombre.repeat(3));
+
+const email = "  Usuario@DOMINIO.com  ";
+const normalizedEmail = email.trim().toLowerCase();
+const domain = normalizedEmail.split("@")[1];
+console.log("Email original:", email);
+console.log("Email normalizado:", normalizedEmail);
+console.log("Dominio extraído:", domain);

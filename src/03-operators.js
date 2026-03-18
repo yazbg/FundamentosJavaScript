@@ -82,3 +82,11 @@ console.log(-1 / 0);
 const notANumber = NaN;
 console.log(notANumber);
 console.log(0 / 0);
+
+let stock = 50;
+let itemsSold = 15;
+stock -= itemsSold;
+let isRestockNeeded = stock < 20 || stock === 0;
+let restockMessage = isRestockNeeded ? "Pedir más inventario" : "Inventario suficiente";
+console.log("Stock actual:", stock);
+console.log("Estado de reabastecimiento:", restockMessage);

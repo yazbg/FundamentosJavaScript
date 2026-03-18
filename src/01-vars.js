@@ -34,3 +34,9 @@ console.log("Valor de PI:", NUMERO_PI);
 // COMENTARIO: Reasignar una constante causará un error.
 // Descomentar la siguiente línea lanzaría un TypeError:
 // NUMERO_PI = 3.14; 
+
+let userName = "Ana";
+const birthYear = 1990;
+var isActive = true;
+userName = "Ana Maria";
+console.log("Nombre de usuario:", userName);
