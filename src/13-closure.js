@@ -11,7 +11,7 @@
 // EJEMPLO PRÁCTICO: UN BANCO
 // ==========================
 // Queremos proteger el "saldo" para que nadie pueda cambiarlo directamente 
-// (por ejemplo: cuenta.saldo = 1000000).
+// (por ejemplo: cuenta.saldo = 1,000,000).
 // Solo podremos interactuar con el dinero a través de las funciones permitidas.
 
 function crearCuentaBancaria(cliente, saldoInicial) {
@@ -25,25 +25,25 @@ function crearCuentaBancaria(cliente, saldoInicial) {
             return cliente;
         },
         consultarSaldo: function() {
-            console.log(`💲 Saldo actual de ${cliente}: $${saldo}`);
+            console.log(`Saldo actual de ${cliente}: $${saldo}`);
             return saldo;
         },
         depositar: function(cantidad) {
             if (cantidad > 0) {
                 saldo += cantidad;
-                console.log(`✅ Depósito de $${cantidad} exitoso. Nuevo saldo: $${saldo}`);
+                console.log(`Depósito de $${cantidad} exitoso. Nuevo saldo: $${saldo}`);
             } else {
-                console.log("❌ La cantidad a depositar debe ser mayor a 0.");
+                console.log("La cantidad a depositar debe ser mayor a 0.");
             }
         },
         retirar: function(cantidad) {
             if (cantidad > saldo) {
-                console.log(`❌ Fondos insuficientes para retirar $${cantidad}. Saldo disponible: $${saldo}`);
+                console.log(`Fondos insuficientes para retirar $${cantidad}. Saldo disponible: $${saldo}`);
             } else if (cantidad <= 0) {
-                console.log("❌ La cantidad a retirar debe ser mayor a 0.");
+                console.log("La cantidad a retirar debe ser mayor a 0.");
             } else {
                 saldo -= cantidad;
-                console.log(`🏧 Retiro de $${cantidad} exitoso. Saldo restante: $${saldo}`);
+                console.log(`Retiro de $${cantidad} exitoso. Saldo restante: $${saldo}`);
             }
         }
     };
