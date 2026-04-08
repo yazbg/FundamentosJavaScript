@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda Nova Premium</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Tema oscuro premium contemporaneo */
+            --bg-color: #0b0d11;
+            --surface-color: #15181e;
+            --surface-hover: #1e2229;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-primary: #8b5cf6;
+            --accent-secondary: #06b6d4;
+            --accent-glow: rgba(139, 92, 246, 0.25);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --transition-smooth: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* Utilidad de animacion inicial al hacer scroll */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        /* Encabezado */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 5%;
+            background: rgba(11, 13, 17, 0.8);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+            border-radius: 8px;
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        nav.nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        nav.nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 1rem;
+            transition: var(--transition-smooth);
+        }
+
+        nav.nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        /* Hero Secction Frontal */
+        .hero {
+            padding: 120px 0 80px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Foco de luz ambiental en el centro */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -150px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.12) 0%, rgba(11, 13, 17, 0) 60%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .hero h1 {
+            font-size: 4.8rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            background: linear-gradient(to right, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 40px auto;
+        }
+
+        /* Controles y Botones */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+            font-size: 1rem;
+            border: none;
+            outline: none;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+            color: #fff;
+            padding: 14px 32px;
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .btn-primary:not(:disabled):hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            padding: 10px 24px;
+        }
+
+        .btn-outline:not(:disabled):hover {
+            border-color: var(--text-primary);
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Secciones Genericas */
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 40px;
+            letter-spacing: -0.02em;
+        }
+
+        section {
+            padding: 80px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        section:last-child {
+            border-bottom: none;
+        }
+
+        /* Rejilla de Productos */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        .product-card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 100%);
+            z-index: -1;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-secondary);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .product-card h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+
+        .product-card p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 24px;
+            flex-grow: 1;
+        }
+
+        .product-price {
+            font-weight: 800;
+            font-size: 1.6rem;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+        }
+
+        /* Rejilla de Opiniones generada por JS */
+        .opiniones-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        @media (max-width: 768px) {
+            .opiniones-list { grid-template-columns: 1fr; }
+        }
+
+        .opinicon {
+            background-color: var(--surface-color);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            border: 1px solid var(--border-color);
+            transition: var(--transition-smooth);
+        }
+        
+        .opinicon:hover {
+            background-color: var(--surface-hover);
+            border-color: var(--text-secondary);
+        }
+
+        .opinicon header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .opinicon .meta strong {
+            font-size: 1.1rem;
+            color: #fff;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .opinicon .meta span {
+            color: var(--accent-secondary);
+            font-size: 0.85rem;
+            font-weight: 700;
+            background: rgba(6, 182, 212, 0.1);
+            padding: 4px 12px;
+            border-radius: 99px;
+            display: inline-block;
+        }
+
+        .opinicon .muted {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .opinicon p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        /* Caja de Interacciones Globales de DOM y Mouse */
+        .events-panel {
+            background-color: var(--surface-color);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            padding: 40px;
+        }
+
+        .status-display {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        #hover-zone {
+            margin-top: 40px;
+            padding: 40px;
+            border: 2px dashed rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        #hover-pill {
+            background: #fff;
+            color: #000;
+            padding: 6px 16px;
+            border-radius: 99px;
+            font-size: 0.85rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition-smooth);
+        }
+
+        #hover-title {
+            margin-top: 24px;
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            transition: var(--transition-smooth);
+        }
+
+        /* Selector desencadenado unicamente mediante JS de Estado */
+        #hover-zone.is-hover {
+            border-color: var(--accent-secondary);
+            background: rgba(6, 182, 212, 0.05);
+            transform: scale(1.02);
+            box-shadow: 0 0 40px rgba(6, 182, 212, 0.15);
+        }
+
+        #hover-zone.is-hover #hover-pill {
+            background: var(--accent-secondary);
+            color: #fff;
+        }
+
+        /* Preguntas Frecuentes */
+        .faq-item {
+            background-color: var(--surface-color);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 16px;
+        }
+
+        .faq-question {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+
+        .faq-answer {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+
+        /* Elementos del Formulario de Contacto */
+        .form-control {
+            width: 100%;
+            padding: 16px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 1rem;
+            outline: none;
+            transition: var(--transition-smooth);
+        }
+
+        .form-control:focus {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+            background-color: #000;
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+            display: block;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Encabezado con efecto cristal -->
+    <header>
+        <div class="logo-container">
+            <div class="logo-icon"></div>
+            <span>Tienda Nova Premium</span>
+        </div>
+        <nav class="nav-links">
+            <a href="#productos">Productos</a>
+            <a href="#eventos">Interacciones</a>
+            <a href="#opiniones">Opiniones</a>
+            <a href="#contacto">Contacto</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main>
+            <!-- Hero Dinamico -->
+            <section class="hero fade-in">
+                <h1>Tecnologia del Nuevo<br>Mundo, Ahora.</h1>
+                <p>Minimalismo sin compromisos, maximo desempeño y una experiencia de usuario que supera todas las expectativas previas.</p>
+                <a href="#productos" class="btn btn-primary">Descubrir Novedades</a>
+            </section>
+
+            <!-- Casos de Productos -->
+            <section id="productos" class="fade-in">
+                <h2 class="section-title">Soluciones Especializadas</h2>
+                <div class="products-grid">
+                    <div class="product-card">
+                        <h3>Audifonos Nova Spectral</h3>
+                        <p>Supresion total de ruidos externos gracias al algoritmo de IA. Concentracion maxima en el trabajo.</p>
+                        <div class="product-price">$249.99</div>
+                        <div>
+                            <button class="btn btn-outline" onclick="alert('Funcionalidad de carrito a futuro')">Agregar</button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <h3>Mouse Ergonomico Zero</h3>
+                        <p>Construccion milimetrica adaptativa para eliminar las lesiones por estres en rutinas maratonicas.</p>
+                        <div class="product-price">$69.90</div>
+                        <div>
+                            <button class="btn btn-outline" onclick="alert('Funcionalidad de carrito a futuro')">Agregar</button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <h3>Teclado Mecanico Optimo</h3>
+                        <p>Diseño sin numeros con sensores mecanicos inmediatos. Escritura fluida garantizada.</p>
+                        <div class="product-price">$149.00</div>
+                        <div>
+                            <button class="btn btn-outline" onclick="alert('Funcionalidad de carrito a futuro')">Agregar</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seccion Central de Manipulacion de Estado en DOM -->
+            <section id="eventos" class="fade-in">
+                <h2 class="section-title">Zona Interactiva con DOM</h2>
+                
+                <div class="events-panel">
+                    <div id="status" class="status-display">Arrancando eventos...</div>
+                    <div style="display: flex; gap: 16px;">
+                        <button id="btn-like" class="btn btn-primary">Dar Like Activo</button>
+                        <button id="btn-reset" class="btn btn-outline" disabled>Limpiar Sistema</button>
+                    </div>
+
+                    <div id="hover-zone">
+                        <span id="hover-pill">Cargando...</span>
+                        <h3 id="hover-title">Esperando validacion javascript</h3>
+                        <p id="hover-text" style="color: var(--text-secondary); margin-top: 12px; font-size: 1.1rem;">
+                            Por favor espera que el app.js inicialice los eventos de control visual.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Renderizado desde Array local -->
+            <section id="opiniones" class="fade-in">
+                <h2 class="section-title">Generico desde Arrays</h2>
+                <div class="opiniones-list">
+                    <!-- Este contenido es limpiado e inyectado con JS nativo -->
+                </div>
+            </section>
+
+            <!-- Intercepcion de Formularios -->
+            <section id="contacto" class="fade-in">
+                <h2 class="section-title">Contacto Inteligente</h2>
+                <form id="form-contacto" style="background: var(--surface-color); padding: 40px; border-radius: var(--radius-lg); border: 1px solid var(--border-color);">
+                    <div style="margin-bottom: 24px;">
+                        <label for="nombre">Nombre Completo</label>
+                        <input type="text" id="nombre" class="form-control" autocomplete="off" placeholder="Ingresa tu nombre..." />
+                        <span id="nombre-error" style="color: #ef4444; font-size: 0.85rem; display: none; margin-top: 8px;">El campo es sumamente obligatorio.</span>
+                    </div>
+                    <div style="margin-bottom: 32px;">
+                        <label for="mensaje">Que tienes en mente para el futuro?</label>
+                        <textarea id="mensaje" class="form-control" rows="4" style="resize: vertical;" placeholder="Proyectos geniales se construyen a diario..."></textarea>
+                        <span id="mensaje-error" style="color: #ef4444; font-size: 0.85rem; display: none; margin-top: 8px;">Requerimos un poco mas de detalle (mas de 10 caracteres).</span>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Enviar Consulta de Validacion</button>
+                </form>
+            </section>
+            
+            <section class="fade-in">
+                <h2 class="section-title">Garantias y FAQs</h2>
+                <div class="faq-item">
+                    <div class="faq-question">Cuanto tardan exactamente sus logísticas?</div>
+                    <div class="faq-answer">Proveemos garantias en 2 a 4 dias habiles mediante metodos priorizados internacionales. Transparente y directo.</div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <script src="./app.js"></script>
+</body>
+</html>
